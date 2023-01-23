@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">revdepcheck</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9001</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/revdepcheck/">
+  <a href="https://github.com/r-lib/revdepcheck/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,7 +81,7 @@
       <h1 data-toc-skip>cloud</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/revdepcheck/blob/master/vignettes/cloud.Rmd"><code>vignettes/cloud.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/revdepcheck/blob/HEAD/vignettes/cloud.Rmd" class="external-link"><code>vignettes/cloud.Rmd</code></a></small>
       <div class="hidden name"><code>cloud.Rmd</code></div>
 
     </div>
@@ -93,21 +89,21 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/revdepcheck">revdepcheck</a></span><span class="op">)</span></code></pre></div>
-<div id="running-reverse-dependencies-in-the-cloud" class="section level1">
-<h1 class="hasAnchor">
-<a href="#running-reverse-dependencies-in-the-cloud" class="anchor"></a>Running reverse dependencies in the cloud</h1>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/revdepcheck">revdepcheck</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="running-reverse-dependencies-in-the-cloud">Running reverse dependencies in the cloud<a class="anchor" aria-label="anchor" href="#running-reverse-dependencies-in-the-cloud"></a>
+</h2>
 <p>revdepcheck now supports running reverse dependencies in the AWS cloud, via a suite a functions all prefixed with <code>cloud_*()</code>. This service is currently only available to be used by RStudio employees, but we hope to offer this service for the broader R community in the future.</p>
-<div id="setup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h2>
+<div class="section level3">
+<h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h3>
 <p>Set the <code>RSTUDIO_CLOUD_REVDEP_KEY</code> environment variable to the value of your AWS authentication key, provided to you by RStudio DevOps. Add this key to your <code>.Renviron</code> file with <code>usethis::edit_r_environ()</code> and restart R.</p>
 <p>Then install and configure the <code>aws</code> command line tool.</p>
 <pre class="shell"><code>brew install awscli
 aws configure sso</code></pre>
 <p>This will start an interactive process for generating a configuration file in <code>~/.aws/config</code>.</p>
 <ul>
-<li>You will be asked for an SSO start URL. Enter <a href="https://rstudio.awsapps.com/start" class="uri">https://rstudio.awsapps.com/start</a>.</li>
+<li>You will be asked for an SSO start URL. Enter <a href="https://rstudio.awsapps.com/start" class="external-link uri">https://rstudio.awsapps.com/start</a>.</li>
 <li>You will be asked for an SSO Region. Enter us-east-2.</li>
 <li>Your browser will open to an Okta single sign on page. Sign in then return to the terminal.</li>
 <li>Select RStudio Main as the AWS account (Note that RStudio Tidyverse is not the correct account for this).</li>
@@ -118,50 +114,50 @@ aws configure sso</code></pre>
 <p>Open the newly generated config text file in <code>~/.aws/config</code>. Make the newly generated profile your default by naming it <code>[default]</code> if it isn’t already. Save and close the file.</p>
 <p>For more information, look here:</p>
 <ul>
-<li><a href="https://app.tettra.co/teams/rstudio/pages/aws-single-sign-on#header-ek8lr-interactive-setup">Tettra post on AWS SSO</a></li>
-<li><a href="https://www.okta.com/blog/2020/05/how-okta-aws-sso-simplifies-admin-and-adds-cli-support/">Okta post on AWS SSO</a></li>
+<li><a href="https://app.tettra.co/teams/rstudio/pages/aws-single-sign-on#header-ek8lr-interactive-setup" class="external-link">Tettra post on AWS SSO</a></li>
+<li><a href="https://www.okta.com/blog/2020/05/how-okta-aws-sso-simplifies-admin-and-adds-cli-support/" class="external-link">Okta post on AWS SSO</a></li>
 </ul>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level3">
+<h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h3>
 <p><strong>Note</strong> If you are going to be running 500+ tests and are using a development dependency (e.g. <code>Remote: org/pkg</code>) you may exhaust the GitHub API limits. A workaround is to use a ‘url’ remote, e.g. <code>Remote: url::https://github.com/org/pkg/archive/master.tar.gz</code>, which does not use the GitHub API.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Kickoff a new check</span>
-<span class="co"># The devel package is automatically built from the current</span>
-<span class="co"># working directory, or specify a pre-built package with `tarball`.</span>
-<span class="fu"><a href="../reference/cloud_check.html">cloud_check</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Follow current status of the job</span>
-<span class="fu"><a href="../reference/cloud_status.html">cloud_status</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Cancel a job</span>
-<span class="fu"><a href="../reference/cloud_cancel.html">cloud_cancel</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Retrieve results (if needed) and show a summary</span>
-<span class="fu"><a href="../reference/cloud_summary.html">cloud_summary</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Retrieve results (if needed) and generate a markdown report</span>
-<span class="fu"><a href="../reference/cloud_report.html">cloud_report</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Retrieve details of a specfic package</span>
-<span class="fu"><a href="../reference/cloud_details.html">cloud_details</a></span><span class="op">(</span>, <span class="st">"pkgXYZ"</span><span class="op">)</span>
-
-<span class="co"># Plot running time for each package in a job</span>
-<span class="fu"><a href="../reference/cloud_plot.html">cloud_plot</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Email maintainers with failures</span>
-<span class="fu"><a href="../reference/cloud_email.html">cloud_email</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Retrieve packages that broke in a given job</span>
-<span class="fu"><a href="../reference/cloud_broken.html">cloud_broken</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Open a web browser to the AWS job pane for the current job</span>
-<span class="fu"><a href="../reference/cloud_browse.html">cloud_browse</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Open the browser to the AWS job for a particular package</span>
-<span class="co"># Useful for debugging why a particular job failed</span>
-<span class="fu"><a href="../reference/cloud_browse.html">cloud_browse</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"xyz"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Kickoff a new check</span></span>
+<span><span class="co"># The devel package is automatically built from the current</span></span>
+<span><span class="co"># working directory, or specify a pre-built package with `tarball`.</span></span>
+<span><span class="fu"><a href="../reference/cloud_check.html">cloud_check</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Follow current status of the job</span></span>
+<span><span class="fu"><a href="../reference/cloud_status.html">cloud_status</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cancel a job</span></span>
+<span><span class="fu"><a href="../reference/cloud_cancel.html">cloud_cancel</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Retrieve results (if needed) and show a summary</span></span>
+<span><span class="fu"><a href="../reference/cloud_summary.html">cloud_summary</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Retrieve results (if needed) and generate a markdown report</span></span>
+<span><span class="fu"><a href="../reference/cloud_report.html">cloud_report</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Retrieve details of a specfic package</span></span>
+<span><span class="fu"><a href="../reference/cloud_details.html">cloud_details</a></span><span class="op">(</span>, <span class="st">"pkgXYZ"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot running time for each package in a job</span></span>
+<span><span class="fu"><a href="../reference/cloud_plot.html">cloud_plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Email maintainers with failures</span></span>
+<span><span class="fu"><a href="../reference/cloud_email.html">cloud_email</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Retrieve packages that broke in a given job</span></span>
+<span><span class="fu"><a href="../reference/cloud_broken.html">cloud_broken</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Open a web browser to the AWS job pane for the current job</span></span>
+<span><span class="fu"><a href="../reference/cloud_browse.html">cloud_browse</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Open the browser to the AWS job for a particular package</span></span>
+<span><span class="co"># Useful for debugging why a particular job failed</span></span>
+<span><span class="fu"><a href="../reference/cloud_browse.html">cloud_browse</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"xyz"</span><span class="op">)</span></span></code></pre></div>
 <p>The functions all keep track of the most recently submitted <code>job_id</code>, so assuming you only have one job in a given R session you can call the functions without additional parameters. Provide the <code>job_id</code> explicitly otherwise, results write to <code>revdep/{job_id}</code>.</p>
 <p>The <code>cloud_*()</code> functions assume your current working directory is in the root directory of the package you are trying to run reverse dependencies for. If this is not the case all <code>cloud_*()</code> functions take a <code>pkg</code> parameter, so you can specify a different directory if needed.</p>
 </div>
@@ -179,11 +175,13 @@ aws configure sso</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Gábor Csárdi, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Gábor Csárdi, Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -191,6 +189,8 @@ aws configure sso</code></pre>
 
   
 
+
+  
 
   </body>
 </html>
